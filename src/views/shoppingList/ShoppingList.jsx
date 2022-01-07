@@ -1,4 +1,9 @@
-import { React, useReducer } from 'react';
+import React from 'react';
+import { useReducer } from 'react';
+import AddItem from '../../components/AddItem/AddItem';
+import ItemList from '../../components/ItemList/ItemList';
+
+const nextId = 3;
 
 const initialShoppingItems = [
   { id: 0, item: 'Ghost Pepper Salt', completed: false },
@@ -8,7 +13,7 @@ const initialShoppingItems = [
 
 function shoppingReducer(shoppingItems, action) {
   switch (action.type) {
-    case 'add': {
+    case 'added': {
       return [
         ...shoppingItems,
         {
@@ -18,15 +23,15 @@ function shoppingReducer(shoppingItems, action) {
         },
       ];
     }
-    case 'edit': {
+    case 'edited': {
       return shoppingItems.map((item) => {
-        if (item.id === action.item.id) {
-          return action.item;
+        if (item.id === action.task.id) {
+          return action.task;
         }
         return item;
       });
     }
-    case 'delete': {
+    case 'deleted': {
       return shoppingItems.filter((item) => item.id !== action.id);
     }
     default: {
@@ -43,28 +48,36 @@ function ShoppingList() {
 
   const handleAddShoppingItem = (item) => {
     dispatch({
-      type: 'add',
-      id: +1,
+      type: 'added',
+      id: nextId + 1,
       item,
     });
   };
-  const handleEditShoppingItem = (item) => {
+  const handleEditShoppingItem = (task) => {
     dispatch({
-      type: 'edit',
-      item,
+      type: 'edited',
+      task,
     });
   };
-  const handleDeleteShoppingItem = (itemId) => {
+  const handleDeleteShoppingItem = (taskId) => {
     dispatch({
-      type: 'delete',
-      id: itemId,
+      type: 'deleted',
+      id: taskId,
     });
   };
 
   return (
-    <div>
-      <h1>This will be a rendered shopping list in no time!</h1>
-    </div>
+    <>
+      <h1>Welcome to my Jank Shopping List made by yours truly</h1>
+      <AddItem onAddItem={handleAddShoppingItem} />
+      <ul>
+        <ItemList
+          shoppingItems={shoppingItems}
+          onChangeShoppingItem={handleEditShoppingItem}
+          onDeleteShoppingItem={handleDeleteShoppingItem}
+        />
+      </ul>
+    </>
   );
 }
 

@@ -1,5 +1,6 @@
 import React from 'react';
+import ShoppingList from './views/shoppingList/ShoppingList';
 
 export default function App() {
-  return <h1>Shopping List!</h1>;
+  return <ShoppingList />;
 }
