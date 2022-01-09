@@ -16,3 +16,15 @@ it('should render a list of items', async () => {
   expect(orangeJuice).toBeInTheDocument();
   expect(sourdoughBread).toBeInTheDocument();
 });
+
+it('should add a new item to the list', () => {
+  const input = screen.getByPlaceholderText('Enter Items here');
+  const button = screen.getByRole('button', { name: 'Add to List' });
+
+  userEvent.type(input, 'Pink Lady Apple');
+  userEvent.click(button);
+
+  const item = screen.getByText('Pink Lady Apple');
+
+  expect(item).toBeInTheDocument();
+});
