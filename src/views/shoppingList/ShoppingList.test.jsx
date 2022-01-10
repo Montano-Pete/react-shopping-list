@@ -52,3 +52,15 @@ it('should edit an item in the list', () => {
 
   expect(updatedInput).toBeInTheDocument();
 });
+
+it('should delete an item from the list', async () => {
+  const orangeJuice = screen.getByText(/Orange Juice/i);
+
+  const button = screen.getByRole('button', {
+    name: 'delete Orange Juice button',
+  });
+
+  userEvent.click(button);
+
+  expect(orangeJuice).not.toBeInTheDocument();
+});
