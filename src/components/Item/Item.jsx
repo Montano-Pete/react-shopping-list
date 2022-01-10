@@ -10,6 +10,7 @@ export default function Item({ item, onChange, onDelete }) {
     itemContent = (
       <>
         <input
+          aria-label={`${item.item} input`}
           type="text"
           value={item.item}
           onChange={(event) => {
@@ -17,7 +18,7 @@ export default function Item({ item, onChange, onDelete }) {
           }}
         />
         <button
-          aria-label="save"
+          aria-label={`save ${item.item} button`}
           type="button"
           name="save"
           onClick={() => setUpdate(false)}
@@ -33,11 +34,11 @@ export default function Item({ item, onChange, onDelete }) {
           {item.item}
         </p>
         <button
-          aria-label="update"
+          aria-label={`edit ${item.item} button`}
           type="button"
           onClick={() => setUpdate(true)}
         >
-          Update Item
+          Edit Item
         </button>
       </>
     );
@@ -55,7 +56,7 @@ export default function Item({ item, onChange, onDelete }) {
       />
       {itemContent}
       <button
-        aria-label="delete"
+        aria-label={`delete ${item.item} button`}
         type="button"
         onClick={() => onDelete(item.id, item.completed)}
       >

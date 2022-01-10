@@ -28,3 +28,27 @@ it('should add a new item to the list', () => {
 
   expect(item).toBeInTheDocument();
 });
+
+it('should edit an item in the list', () => {
+  const editButton = screen.getByRole('button', {
+    name: 'edit Ghost Pepper Salt button',
+  });
+
+  userEvent.click(editButton);
+
+  const editInput = screen.getByRole('textbox', {
+    name: 'Ghost Pepper Salt input',
+  });
+
+  userEvent.type(editInput, ' x2');
+
+  const saveButton = screen.getByRole('button', {
+    name: 'save Ghost Pepper Salt x2 button',
+  });
+
+  userEvent.click(saveButton);
+
+  const updatedInput = screen.getByText('Ghost Pepper Salt x2');
+
+  expect(updatedInput).toBeInTheDocument();
+});
